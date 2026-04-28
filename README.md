@@ -28,7 +28,7 @@ A simple web application that demonstrates different asynchronous JavaScript pat
 
 ## API
 
-Uses the [Open Notify API](http://api.open-notify.org/astros.json) for astronaut data.
+Uses the [Open Notify API](https://api.open-notify.org/astros.json) for astronaut data.
 
 ## Technologies
 
