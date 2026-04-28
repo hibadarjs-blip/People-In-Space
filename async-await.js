@@ -1,4 +1,4 @@
-const astrosUrl = 'https://raw.githubusercontent.com/openai/gpt-demo-data/main/astronauts.json';
+// const astrosUrl = 'https://raw.githubusercontent.com/openai/gpt-demo-data/main/astronauts.json';
 const wikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
 const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
@@ -74,23 +74,25 @@ function generateHTML(data) {
   
 }
 
-btn.addEventListener('click', async (event) => {
-  event.target.textContent = "Loading...";
-  getPeopleInSpace(astrosUrl)
-  .then(generateHTML)
-  .catch(e => { // This a user friendly error message.
-    peopleList.innerHTML ='<h3>Oops! Something went wrong.</h3>';
-    console.error(e);
-  })
-  .finally(()=> event.target.remove())
+btn.addEventListener("click", getPeopleInSpace);
+
+// btn.addEventListener('click', async (event) => {
+//   event.target.textContent = "Loading...";
+//   getPeopleInSpace(astrosUrl)
+//   .then(generateHTML)
+//   .catch(e => { // This a user friendly error message.
+//     peopleList.innerHTML ='<h3>Oops! Something went wrong.</h3>';
+//     console.error(e);
+//   })
+//   .finally(()=> event.target.remove())
 
 
 
 
-// Synchronous...
-  // const astros = await getPeopleInSpace(astrosUrl);
-  // generateHTML(astros);
-  // event.target.remove();
+// // Synchronous...
+//   // const astros = await getPeopleInSpace(astrosUrl);
+//   // generateHTML(astros);
+//   // event.target.remove();
 
  
-});
+// });
