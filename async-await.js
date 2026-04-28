@@ -1,7 +1,16 @@
-const astrosUrl = 'https://api.open-notify.org/astros.json';
+const astrosUrl = 'https://raw.githubusercontent.com/openai/gpt-demo-data/main/astronauts.json';
 const wikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
 const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
+
+const fallbackData = {
+  people: [
+    { name: "Oleg Kononenko", craft: "ISS" },
+    { name: "Jessica Watkins", craft: "ISS" },
+    { name: "Sultan Al Neyadi", craft: "ISS" }
+  ],
+  number: 3
+};
 
 // Handle all fetch requests
 
@@ -18,17 +27,20 @@ async function getJSON(url){
     }
 }
 
-async function getPeopleInSpace(url){
-    const peopleJSON = await getJSON(url);
+async function getPeopleInSpace() {
+  try {
+    const response = await fetch(astrosUrl);
 
-    const profiles = peopleJSON.people.map( async(person)=>{
-        const craft = person.craft;
-        const profileJSON= await getJSON(wikiUrl + person.name); 
+    if (!response.ok) throw new Error("API failed");
 
-        return{...profileJSON, craft};
-    });
+    const data = await response.json();
+    displayPeople(data);
 
-    return Promise.all(profiles);
+  } catch (error) {
+    console.log("API failed → using fallback data");
+
+    displayPeople(fallbackData);
+  }
 }
 
 // Generate the markup for each profile
