@@ -4,13 +4,14 @@ const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
 
 const fallbackData = {
+  number: 3,
   people: [
     { name: "Oleg Kononenko", craft: "ISS" },
     { name: "Jessica Watkins", craft: "ISS" },
     { name: "Sultan Al Neyadi", craft: "ISS" }
-  ],
-  number: 3
+  ]
 };
+
 
 // Handle all fetch requests
 
@@ -27,21 +28,25 @@ async function getJSON(url){
     }
 }
 
-async function getPeopleInSpace() {
-  try {
-    const response = await fetch(astrosUrl);
-
-    if (!response.ok) throw new Error("API failed");
-
-    const data = await response.json();
-    displayPeople(data);
-
-  } catch (error) {
-    console.log("API failed → using fallback data");
-
-    displayPeople(fallbackData);
-  }
+function getPeopleInSpace() {
+  displayPeople(fallbackData);
 }
+
+// async function getPeopleInSpace() {
+//   try {
+//     const response = await fetch(astrosUrl);
+
+//     if (!response.ok) throw new Error("API failed");
+
+//     const data = await response.json();
+//     displayPeople(data);
+
+//   } catch (error) {
+//     console.log("API failed → using fallback data");
+
+//     displayPeople(fallbackData);
+//   }
+// }
 
 // Generate the markup for each profile
 function generateHTML(data) {
